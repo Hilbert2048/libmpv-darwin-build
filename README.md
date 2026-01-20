@@ -7,6 +7,13 @@ with commercial use for playback, and GPL use for encoding.
 Heavily inspired by [Homebrew](https://github.com/Homebrew/brew) and
 [IINA](https://github.com/iina/iina).
 
+## Features
+
+- **MPV 0.41.0** with libplacebo support
+- **Swift support** for macOS (Cocoa integration)
+- Pre-built xcframeworks for iOS and macOS
+- Multiple variants (audio/video) and flavors (default/full/encodersgpl)
+
 ## Setup
 
 - Nix: [nixos.org/download/#nix-install-macos](https://nixos.org/download/#nix-install-macos)
@@ -124,8 +131,8 @@ Inclusion:
     <tr>
       <td rowspan="2"><strong>macOS</strong></td>
       <td>amd64</td>
-      <td rowspan="2"><code>10.9</code></td>
-      <td rowspan="2">Required by <code>uchardet</code></td>
+      <td rowspan="2"><code>10.15</code></td>
+      <td rowspan="2">Required by Swift (Cocoa integration)</td>
     </tr>
     <tr>
       <td>arm64</td>

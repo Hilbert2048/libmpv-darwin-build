@@ -1,13 +1,13 @@
 {
   dav1d = {
-    version = "1.2.1";
-    url = "https://code.videolan.org/videolan/dav1d/-/archive/1.2.1/dav1d-1.2.1.tar.bz2";
-    sha256 = "a4003623cdc0109dec3aac8435520aa3fb12c4d69454fa227f2658cdb6dab5fa";
+    version = "1.5.0";
+    url = "https://code.videolan.org/videolan/dav1d/-/archive/1.5.0/dav1d-1.5.0.tar.bz2";
+    sha256 = "0r6y5bvjykxc4v833yb279xcsviqqnjiv7im5lfawmpc9kin9jm6";
   };
   ffmpeg = {
-    version = "6.0";
-    url = "https://ffmpeg.org/releases/ffmpeg-6.0.tar.xz";
-    sha256 = "57be87c22d9b49c112b6d24bc67d42508660e6b718b3db89c44e47e289137082";
+    version = "7.1";
+    url = "https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz";
+    sha256 = "1rmblxw0dlvjfkpd4vcihlnvx0j9wzr0j1ib63pq7g0djx23v5s0";
   };
   fftools-ffi = {
     version = "9b0d4da0";
@@ -65,9 +65,9 @@
     sha256 = "164688b63f11a6e4f6d945057fc5c57d5eefb97973d0029fb0303744e10839ff";
   };
   libxml2 = {
-    version = "2.11.5";
-    url = "https://download.gnome.org/sources/libxml2/2.11/libxml2-2.11.5.tar.xz";
-    sha256 = "3727b078c360ec69fa869de14bd6f75d7ee8d36987b071e6928d4720a28df3a6";
+    version = "2.13.5";
+    url = "https://download.gnome.org/sources/libxml2/2.13/libxml2-2.13.5.tar.xz";
+    sha256 = "1dmjqzagddlnnksrw7r3qiii51h87saayfdysdbl55m32wr1dz3l";
   };
   mbedtls = {
     version = "3.4.1";
@@ -75,9 +75,14 @@
     sha256 = "a420fcf7103e54e775c383e3751729b8fb2dcd087f6165befd13f28315f754f5";
   };
   mpv = {
-    version = "0.36.0";
-    url = "https://github.com/mpv-player/mpv/archive/refs/tags/v0.36.0.tar.gz";
-    sha256 = "29abc44f8ebee013bb2f9fe14d80b30db19b534c679056e4851ceadf5a5e8bf6";
+    version = "0.41.0-preload";
+    url = "https://github.com/Hilbert2048/mpv/archive/820a11d042fe6a56048f35d5fe227d7dd628b0ed.tar.gz";
+    sha256 = "0izbm7xgcqz1hz7bz2qdrnl9ldgvbq6zk21imvgi346pfqv6kw1k";
+  };
+  libplacebo = {
+    version = "7.349.0";
+    url = "https://code.videolan.org/videolan/libplacebo/-/archive/v7.349.0/libplacebo-v7.349.0.tar.gz";
+    sha256 = "11mw1yi7j5nhr3v3ajjd9sl8c932c5b6lfxia55k8dhqb9l0w4kr";
   };
   uchardet = {
     version = "0.0.8";

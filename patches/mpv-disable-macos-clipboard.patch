@@ -1,0 +1,70 @@
+--- a/meson.build
++++ b/meson.build
+@@ -426,8 +426,7 @@ if features['cocoa']
+     path_source += files('osdep/path-mac.m')
+     sources += files('osdep/language-mac.c',
+                      'osdep/utils-mac.c',
+-                     'osdep/mac/app_bridge.m',
+-                     'player/clipboard/clipboard-mac.m')
++                     'osdep/mac/app_bridge.m')
+     main_fn_source = files('osdep/main-fn-mac.c')
+ endif
+
+--- a/player/clipboard/clipboard.c
++++ b/player/clipboard/clipboard.c
+@@ -30,7 +30,6 @@ struct clipboard_opts {
+ 
+ // backend list
+ extern const struct clipboard_backend clipboard_backend_win32;
+-extern const struct clipboard_backend clipboard_backend_mac;
+ extern const struct clipboard_backend clipboard_backend_wayland;
+ extern const struct clipboard_backend clipboard_backend_x11;
+ extern const struct clipboard_backend clipboard_backend_vo;
+@@ -39,9 +38,6 @@ static const struct clipboard_backend *const clipboard_backend_list[] = {
+ #if HAVE_WIN32_DESKTOP
+     &clipboard_backend_win32,
+ #endif
+-#if HAVE_COCOA
+-    &clipboard_backend_mac,
+-#endif
+ #if HAVE_WAYLAND && HAVE_WAYLAND_PROTOCOLS_1_39
+     &clipboard_backend_wayland,
+ #endif
+@@ -83,7 +79,6 @@ const struct m_sub_options clipboard_conf = {
+     .defaults = &(const struct clipboard_opts) {
+         .backends = (struct m_obj_settings[]) {
+             {.name = "win32", .enabled = true},
+-            {.name = "mac", .enabled = true},
+             {.name = "wayland", .enabled = true},
+             {.name = "x11", .enabled = true},
+             {.name = "vo", .enabled = true},
+
+--- a/osdep/mac/app_bridge.m
++++ b/osdep/mac/app_bridge.m
+@@ -165,4 +165,26 @@ int cocoa_main(int argc, char *argv[])
+ {
+     return [(Application *)[Application sharedApplication] main:argc :argv];
+ }
++#else
++// Stub implementations when Swift is disabled
++void cocoa_init_media_keys(void)
++{
++}
++
++void cocoa_uninit_media_keys(void)
++{
++}
++
++void cocoa_set_input_context(struct input_ctx *input_context)
++{
++}
++
++void cocoa_set_mpv_handle(struct mpv_handle *ctx)
++{
++}
++
++void cocoa_init_cocoa_cb(void)
++{
++}
+ #endif
++

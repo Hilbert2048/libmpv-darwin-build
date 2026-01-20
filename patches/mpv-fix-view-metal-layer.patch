@@ -1,0 +1,22 @@
+diff --git a/video/out/mac/view.swift b/video/out/mac/view.swift
+index c341b3154a..1a8ba66d65 100644
+--- a/video/out/mac/view.swift
++++ b/video/out/mac/view.swift
+@@ -28,13 +28,16 @@ class View: NSView, CALayerDelegate {
+     override var isFlipped: Bool { return true }
+     override var acceptsFirstResponder: Bool { return true }
+ 
++#if HAVE_VULKAN
+     override var isOpaque: Bool {
+         if let metalLayer = layer as? MetalLayer {
+             return !metalLayer.isOpaque
+         }
+-
+         return true
+     }
++#else
++    override var isOpaque: Bool { return true }
++#endif
+ 
+     init(frame: NSRect, common com: Common) {
+         common = com

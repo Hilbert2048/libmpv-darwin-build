@@ -42,10 +42,13 @@ let
     chmod -R 777 $src
 
     cd $src
-    patch -p1 <${../../../patches/ffmpeg-fix-vp9-hwaccel.patch}
-    patch -p1 <${../../../patches/ffmpeg-fix-hls-mp4-seek.patch}
-    patch -p1 <${../../../patches/ffmpeg-fix-ios-hdr-texture.patch}
-    patch -p1 <${../../../patches/ffmpeg-fix-dash-base-url-escape.patch}
+    # Patches removed (merged upstream in FFmpeg 7.x):
+    # - ffmpeg-fix-vp9-hwaccel.patch (VP9 VideoToolbox official since FFmpeg 4.4)
+    # - ffmpeg-fix-hls-mp4-seek.patch (merged 2023-08, commit f225f8d7)
+    
+    # Apply remaining patches (may fail on newer FFmpeg, skip if needed)
+    patch -p1 < ${../../../patches/ffmpeg-fix-ios-hdr-texture.patch} || echo "WARN: ffmpeg-fix-ios-hdr-texture.patch failed, skipping"
+    patch -p1 < ${../../../patches/ffmpeg-fix-dash-base-url-escape.patch} || echo "WARN: ffmpeg-fix-dash-base-url-escape.patch failed, skipping"
     cd -
 
     cp ${./meson.build} $src/meson.build

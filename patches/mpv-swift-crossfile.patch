@@ -1,0 +1,29 @@
+--- a/meson.build
++++ b/meson.build
+@@ -1569,11 +1569,19 @@ swift = get_option('swift-build').require(
+     darwin and features['cocoa'],
+     error_message: 'cocoa was not found',
+ )
+-xcrun = find_program('xcrun', required: swift)
++# Try to find swift directly from cross-file first, then fall back to xcrun
++swift_prog = find_program('swift', required: false)
+ swift_ver = '0.0'
+-if xcrun.found()
+-    swift_prog = find_program(run_command(xcrun, '-find', 'swiftc', check: true).stdout().strip())
+-    swift_ver_string = run_command(swift_prog, '-version', check: true).stdout()
++if swift_prog.found()
++    swift_ver_string = run_command(swift_prog, '-version', check: false).stdout()
++    if swift_ver_string == ''
++        swift_prog = disabler()
++    endif
++else
++    xcrun = find_program('xcrun', required: false)
++    if xcrun.found()
++        swift_prog = find_program(run_command(xcrun, '-find', 'swiftc', check: false).stdout().strip(), required: false)
++        swift_ver_string = swift_prog.found() ? run_command(swift_prog, '-version', check: false).stdout() : ''
++    endif
++endif
++if swift_prog.found() and swift_ver_string != ''
+     verRe = '''
+ #!/usr/bin/env python3
+ import re

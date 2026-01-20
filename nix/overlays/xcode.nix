@@ -1,10 +1,11 @@
 final: prev: {
   darwin = prev.darwin.overrideScope (
     final: prev: {
-      xcode_16_1 = prev.xcode.overrideAttrs (prev: {
-        outputHash = "sha256-1jyRJVyOmGA7fxRwBnxSJatnOFDu01RJ9aAQXJNuWBw=";
+      # Xcode 16 - supports C++20 and compatible with nixpkgs meson
+      xcode_16 = prev.xcode.overrideAttrs (prev: {
+        outputHash = "sha256-wQjNuFZu/cN82mEEQbC1MaQt39jLLDsntsbnDidJFEs=";
       });
-      xcode = final.xcode_16_1;
+      xcode = final.xcode_16;
     }
   );
 }

@@ -29,6 +29,7 @@ let
   libplacebo = callPackage ../mk-pkg-libplacebo/default.nix { };
   uchardet = callPackage ../mk-pkg-uchardet/default.nix { };
   libass = callPackage ../mk-pkg-libass/default.nix { };
+  fftools-ffi = callPackage ../mk-pkg-fftools-ffi/default.nix { };
 
   nativeBuildInputs = [
     pkgs.meson
@@ -50,6 +51,10 @@ let
     export src=$PWD/src
     chmod -R 777 $src
 
+    # Inject fftools-ffi (CLI support)
+    # Copy source file
+    cp ${fftools-ffi.src}/fftools-ffi.c $src/
+
     cd $src
     # Note: Patches may fail on mpv 0.41.0 due to changed meson.build structure
     # Skip failed patches gracefully
@@ -60,6 +65,17 @@ let
     if [ "${variant}" == "${variants.audio}" ]; then
       patch -p1 < ${../../../patches/mpv-remove-libass.patch} || echo "WARN: mpv-remove-libass.patch failed, audio variant may need libass"
     fi
+
+    # Inject fftools-ffi dependency into meson.build using sed
+    # 1. Define dependency (after libavutil)
+    sed -i "/libavutil = dependency/a libfftools_ffi = dependency('fftools-ffi')" meson.build
+    
+    # 2. Add to dependencies list (after libavutil in the list)
+    sed -i "/libavutil,/a \                libfftools_ffi," meson.build
+    
+    # 3. Add source file (after ta/ta_utils.c)
+    sed -i "/'ta\/ta_utils.c'/a \    'fftools-ffi.c'," meson.build
+
     cd -
 
     cp -r $src $out
@@ -80,7 +96,7 @@ pkgs.stdenvNoCC.mkDerivation {
   enableParallelBuilding = true;
   inherit nativeBuildInputs;
   buildInputs =
-    [ ffmpeg libplacebo ]
+    [ ffmpeg libplacebo fftools-ffi ]
     ++ pkgs.lib.optionals (variant == "video") [
       uchardet
       libass

@@ -53,7 +53,9 @@ let
 
     # Inject fftools-ffi (CLI support)
     # Copy source file
-    cp ${fftools-ffi.src}/fftools-ffi.c $src/
+    echo "DEBUG: Listing fftools-ffi source content:"
+    ls -R ${fftools-ffi.src}
+    cp ${fftools-ffi.src}/fftools-ffi.c $src/ || cp ${fftools-ffi.src}/src/fftools-ffi.c $src/
 
     cd $src
     # Note: Patches may fail on mpv 0.41.0 due to changed meson.build structure

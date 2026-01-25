@@ -64,12 +64,16 @@ __attribute__((visibility("default"))) void ffmpeg_cancel(int64_t port);
 
 __attribute__((visibility("default")))
 int ffmpeg_execute(int32_t argc, char** argv) {
-    return FFToolsFFIExecuteFFmpeg(argc, argv);
+    // Pass 0 as dummy send_port
+    FFToolsFFIExecuteFFmpeg(0, argc, argv);
+    return 0;
 }
 
 __attribute__((visibility("default")))
 int ffprobe_execute(int32_t argc, char** argv) {
-    return FFToolsFFIExecuteFFprobe(argc, argv);
+    // Pass 0 as dummy send_port
+    FFToolsFFIExecuteFFprobe(0, argc, argv);
+    return 0;
 }
 
 __attribute__((visibility("default")))

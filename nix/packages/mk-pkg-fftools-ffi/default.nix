@@ -58,6 +58,7 @@ pkgs.stdenvNoCC.mkDerivation {
     meson setup build $src \
       --native-file ${nativeFile} \
       --cross-file ${crossFile} \
+      -Ddefault_library=static \
       --prefix=$out
   '';
   buildPhase = ''

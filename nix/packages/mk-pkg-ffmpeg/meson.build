@@ -257,7 +257,6 @@ video_default_options = [
     '--enable-hwaccel=mpeg1_videotoolbox',
     '--enable-hwaccel=mpeg2_videotoolbox',
     '--enable-hwaccel=mpeg4_videotoolbox',
-    '--enable-hwaccel=mpeg4_videotoolbox',
     '--enable-hwaccel=vp9_videotoolbox',
 
     # muxers

@@ -267,7 +267,7 @@ video_default_options = [
     '--enable-muxer=mp3',
     '--enable-muxer=flac',
     '--enable-muxer=wav',
-    '--enable-muxer=image2', // For screenshots/snapshots
+    '--enable-muxer=image2', # For screenshots/snapshots
 ]
 
 audio_full_options = [

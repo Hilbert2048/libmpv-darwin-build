@@ -261,7 +261,6 @@ video_default_options = [
 
     # muxers
     '--enable-muxer=mp4',
-    '--enable-muxer=mov',
 ]
 
 audio_full_options = [

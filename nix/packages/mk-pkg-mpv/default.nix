@@ -52,14 +52,25 @@ let
     chmod -R 777 $src
 
     # Inject fftools-ffi (CLI support)
-    # Create glue file to force linking symbols
+    # Create glue file to force linking symbols AND export alias for Dart
     cat > $src/fftools-ffi.c <<EOF
 #include "fftools-ffi/dart_api.h"
+#include <stdint.h>
 
-void* a = FFToolsFFIInitialize;
-void* b = FFToolsFFIExecuteFFmpeg;
-void* c = FFToolsFFIExecuteFFprobe;
-void* d = FFToolsCancel;
+__attribute__((visibility("default")))
+void ffmpeg_execute(int32_t argc, char** argv) {
+    FFToolsFFIExecuteFFmpeg(argc, argv);
+}
+
+__attribute__((visibility("default")))
+void ffprobe_execute(int32_t argc, char** argv) {
+    FFToolsFFIExecuteFFprobe(argc, argv);
+}
+
+__attribute__((visibility("default")))
+void ffmpeg_cancel() {
+    FFToolsCancel();
+}
 EOF
 
     cd $src

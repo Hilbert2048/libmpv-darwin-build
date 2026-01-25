@@ -28,9 +28,12 @@ let
     chmod -R 777 src
     cd src
     # Define missing av_stream_get_end_pts macro
-    sed -i '/#include "libavutil\/avassert.h"/a #define av_stream_get_end_pts(st) ((st)->duration != AV_NOPTS_VALUE ? (st)->start_time + (st)->duration : AV_NOPTS_VALUE)' ffmpeg.c
+    # Insert after include block via a safer anchor
+    sed -i '/#include "ffmpeg.h"/a #define av_stream_get_end_pts(st) ((st)->duration != AV_NOPTS_VALUE ? (st)->start_time + (st)->duration : AV_NOPTS_VALUE)' ffmpeg.c
     cd ..
-    cp -r src $out
+    # Use src/. to copy contents directly to $out, avoiding nesting
+    mkdir -p $out
+    cp -r src/. $out/
   '';
 in
 

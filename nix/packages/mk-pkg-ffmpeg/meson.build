@@ -262,12 +262,6 @@ video_default_options = [
     # muxers
     '--enable-muxer=mp4',
     '--enable-muxer=mov',
-    '--enable-muxer=matroska',
-    '--enable-muxer=avi',
-    '--enable-muxer=mp3',
-    '--enable-muxer=flac',
-    '--enable-muxer=wav',
-    '--enable-muxer=image2', # For screenshots/snapshots
 ]
 
 audio_full_options = [

@@ -52,10 +52,15 @@ let
     chmod -R 777 $src
 
     # Inject fftools-ffi (CLI support)
-    # Copy source file
-    echo "DEBUG: Listing fftools-ffi source content:"
-    ls -R ${fftools-ffi.src}
-    cp ${fftools-ffi.src}/fftools-ffi.c $src/ || cp ${fftools-ffi.src}/src/fftools-ffi.c $src/
+    # Create glue file to force linking symbols
+    cat > $src/fftools-ffi.c <<EOF
+#include "fftools-ffi/dart_api.h"
+
+void* a = FFToolsFFIInitialize;
+void* b = FFToolsFFIExecuteFFmpeg;
+void* c = FFToolsFFIExecuteFFprobe;
+void* d = FFToolsCancel;
+EOF
 
     cd $src
     # Note: Patches may fail on mpv 0.41.0 due to changed meson.build structure

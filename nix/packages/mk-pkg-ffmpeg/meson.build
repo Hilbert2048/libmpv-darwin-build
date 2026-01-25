@@ -259,6 +259,13 @@ video_default_options = [
     '--enable-hwaccel=mpeg4_videotoolbox',
     '--enable-hwaccel=vp9_videotoolbox',
 
+    # filters
+    '--enable-filter=thumbnail',
+
+    # encoders (for thumbnails/extraction)
+    '--enable-encoder=mjpeg',
+    '--enable-encoder=png',
+
     # muxers
     '--enable-muxer=mp4',
 ]

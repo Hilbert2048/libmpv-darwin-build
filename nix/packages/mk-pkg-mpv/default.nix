@@ -57,19 +57,24 @@ let
 #include "fftools-ffi/dart_api.h"
 #include <stdint.h>
 
+// Forward declarations to silence -Wmissing-prototypes
+__attribute__((visibility("default"))) int ffmpeg_execute(int32_t argc, char** argv);
+__attribute__((visibility("default"))) int ffprobe_execute(int32_t argc, char** argv);
+__attribute__((visibility("default"))) void ffmpeg_cancel(int64_t port);
+
 __attribute__((visibility("default")))
-void ffmpeg_execute(int32_t argc, char** argv) {
-    FFToolsFFIExecuteFFmpeg(argc, argv);
+int ffmpeg_execute(int32_t argc, char** argv) {
+    return FFToolsFFIExecuteFFmpeg(argc, argv);
 }
 
 __attribute__((visibility("default")))
-void ffprobe_execute(int32_t argc, char** argv) {
-    FFToolsFFIExecuteFFprobe(argc, argv);
+int ffprobe_execute(int32_t argc, char** argv) {
+    return FFToolsFFIExecuteFFprobe(argc, argv);
 }
 
 __attribute__((visibility("default")))
-void ffmpeg_cancel() {
-    FFToolsCancel();
+void ffmpeg_cancel(int64_t port) {
+    FFToolsCancel(port);
 }
 EOF
 

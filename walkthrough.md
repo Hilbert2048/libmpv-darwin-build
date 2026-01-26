@@ -96,13 +96,24 @@ MPV 0.41.0 的 `view.swift` 无条件引用了 `MetalLayer` 类型，但该类�
 
 ## 构建命令
 
+升级版本号：修改这个文件libmpv-darwin-build/nix/utils/default/version.nix 
+
+
 ```bash
 # 构建 macOS
 nix build '.#mk-out-archive-xcframeworks-macos-universal-video-default' -L
 
 # 构建 iOS
 nix build '.#mk-out-archive-xcframeworks-ios-universal-video-default' -L
+
+nix build -v '.#mk-out-archive-xcframeworks-ios-universal-video-default' '.#mk-out-archive-xcframeworks-macos-universal-video-default'
+
 ```
+
+构建产物：
+
+result/libmpv-xcframeworks_v0.41.0-preload_ios-universal-video-default.tar.gz (~19 MB)
+result-1/libmpv-xcframeworks_v0.41.0-preload_macos-universal-video-default.tar.gz (~16 MB)
 
 ## 常见问题
 
@@ -111,6 +122,20 @@ nix build '.#mk-out-archive-xcframeworks-ios-universal-video-default' -L
 
 ### Q: 构建时出现 "cannot find type 'MetalLayer'" 错误
 需要应用 `mpv-fix-view-metal-layer.patch` 补丁。
+
+### Q: 为什么需要手动生成 `fftools-ffi.c`？
+`fftools-ffi` 库本身提供的符号（如 `FFToolsFFIExecuteFFmpeg`）在 `libmpv` 中没有被显式调用。为了防止链接器将其作为死代码剔除（Dead Code Stripping），我们生成了一个极简的桩文件（Stub），引用这些符号以强制链接。
+
+```c
+#include "fftools-ffi/dart_api.h"
+// Force link symbols by referencing them
+void* a = FFToolsFFIInitialize;
+void* b = FFToolsFFIExecuteFFmpeg;
+...
+```
+
+注意：我们在 Dart 代码 (`ffmpeg.dart`) 中直接绑定了原生的 `FFToolsFFIExecuteFFmpeg` 符号，而不是使用中间层改名。这确保了架构的清洁性和性能。
+
 
 ### Q: macOS 应用点击 Play 卡死
 这通常是因为 Swift 被禁用，导致 Cocoa 函数使用了空的 stub 实现。确保启用了 Swift 支持。

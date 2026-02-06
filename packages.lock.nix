@@ -75,9 +75,9 @@
     sha256 = "a420fcf7103e54e775c383e3751729b8fb2dcd087f6165befd13f28315f754f5";
   };
   mpv = {
-    version = "0.41.0-preload-fix";
-    url = "https://github.com/Hilbert2048/mpv/archive/31473c33a37d5685e77af3ef3f541fafdc375a0e.tar.gz";
-    sha256 = "sha256:1q6a341rwwj5b0ayw0zxi8wkd0nd5ip7c6smrc8s26jxiz9rhdxy";
+    version = "0.64.0-preload-fix";
+    url = "https://github.com/Hilbert2048/mpv/archive/65deeaa68f3c80c32191f4bd588c14cd27e13787.tar.gz";
+    sha256 = "sha256:0yi49hmczy3bcszg6p9icqkz5xd02774gqb3a4xijxxd90h32fi8";
   };
   libplacebo = {
     version = "7.349.0";

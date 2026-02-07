@@ -20,7 +20,7 @@ options.add_cmake_defines({
     'USE_STATIC_MBEDTLS_LIBRARY': false,
     'USE_SHARED_MBEDTLS_LIBRARY': true,
     'LINK_WITH_PTHREAD': true,
-    'CMAKE_C_FLAGS': '-DMBEDTLS_THREADING_C -DMBEDTLS_THREADING_PTHREAD -DMBEDTLS_FS_IO',
+    'ENABLE_THREADING': true,
 })
 
 mbedtls = cmake.subproject('mbedtls',
